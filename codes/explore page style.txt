@@ -1,6 +1,3 @@
-html{
-    scroll-behavior: smooth;
-}
 .search{
     border-radius: 20px;
     height: 50px;
