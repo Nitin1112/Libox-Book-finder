@@ -1,0 +1,21 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+
+body{
+    background-image: url(images/carousel\ 4.jpeg);
+    background-position: center;
+}
+.about{
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    height: 50%;
+    width: 50%;
+    margin-left: 30px;
+    margin-top: 10px;
+    border-radius: 10px;
+    padding:30px;
+    padding-left: 20px;
+    font-size: large;
+}

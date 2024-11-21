@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libox</title>
+    <link rel="stylesheet" href="home style.css">
+    <link rel="stylesheet" href="explore page.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <img src="pnglogo.png" height="80px">
+        <div class="navcontent">
+            <span style="content:\e003;"></span>
+            <span><a href="explore page.html">EXPLORE</a></span>
+            <span><a href="home page.html">HOME</a></span>
+            <span><a href="login page.html">LOGIN</a></span>
+            <span><a href="#aboutus">ABOUT US</a></span>
+        </div>
+        <br>
+        <br>
+        <input type="search" list="books" placeholder="Search books" id="search" class="search">
+        <datalist id="books">
+            <option value="Harry Potter" >
+            <option value="Blood Meridian" >
+            <option value="The Line Of Beauty" >
+            <option value="great father" >
+            <option value="sandclock" >
+            <option value="economic wealth" >
+            <option value="david copperfield" >
+            <option value="wuthering heights" >
+            <option value="atomic habits" >
+            <option value="white noise" >
+        </datalist>
+        <button onclick="searchbooks()" class="searchbutton"><span class="fa fa-search"></span></button>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="mainblock">
+            <div id="map" class="div1"></div>
+        
+    </div>
+    <script>(g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })
+            ({ key: "AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg", v: "weekly" });
+
+        /**
+ * @license
+ * Copyright 2019 Google LLC. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+        let map;
+        let books = [{
+            "harry potter": ['Omni Books Library', 11.030842009681567, 77.01303195287497, 4],
+            "blood meridian": ['The district Central library', 11.024709777585809, 76.9483023183074, 5],
+            "harry potter - 2": ['choose and read library', 11.005652395770985, 76.97358706432458, 3],
+            "the line of beauty": ['choose and read library', 11.005652395770985, 76.97358706432458, 3],
+            "white noise": ['Town hall library', 10.999501234270308, 76.96221112895199, 2],
+            "atomic habits": ['Coimbatore dstrict public library', 10.983491099373152, 76.91489033249897, 1],
+            "wuthering heights": ['Town hall library', 10.999501234270308, 76.96221112895199, 2],
+            "david copperfield": ['choose and read library', 11.005652395770985, 76.97358706432458, 3],
+            "economic wealth": ['Omni Books Library', 11.030842009681567, 77.01303195287497, 4],
+            "sandclock": ['The district Central library', 11.024709777585809, 76.9483023183074, 5],
+            "great father": ['Omni Books Library', 11.030842009681567, 77.01303195287497, 4],
+            "harry": ['The district Central library', 11.024709777585809, 76.9483023183074, 5],
+        }];
+
+        let locations = [
+            ['Omni Books Library', 11.030842009681567, 77.01303195287497, 4],
+            ['The district Central library', 11.024709777585809, 76.9483023183074, 5],
+            ['choose and read library', 11.005652395770985, 76.97358706432458, 3],
+            ['Town hall library', 10.999501234270308, 76.96221112895199, 2],
+            ['Coimbatore dstrict public library', 10.983491099373152, 76.91489033249897, 1]
+        ];
+        async function initMap() {
+            const { Map } = await google.maps.importLibrary("maps");
+
+            map = new Map(document.getElementById("map"), {
+                zoom: 10,
+                center: new google.maps.LatLng(11.005836357348384, 76.9562259668435),
+            });
+
+            var marker, i;
+            var infowindow = new google.maps.InfoWindow();
+            for (i = 0; i < locations.length; i++) {
+                marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                    map: map
+                });
+
+                google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                    return function () {
+                        infowindow.setContent(locations[i][0]);
+                        infowindow.open(map, marker);
+                    }
+                })(marker, i));
+            }
+        }
+
+        initMap();
+        function searchbooks() {
+            var searchValue = document.getElementById("search").value;
+            var arr = [];
+            var result = Object.keys(books[0])
+                .map((value, key) => {
+                    if (value.toLowerCase().trim().match(searchValue.toLowerCase().trim()) || searchValue === "") {
+                        arr.push(books[0][value]);
+                    }
+                });
+            locations = arr;
+            initMap();
+        };
+    </script>
+    </div>
+</body>
+
+</html>
